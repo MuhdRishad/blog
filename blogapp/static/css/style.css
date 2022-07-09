@@ -1,0 +1,20 @@
+.reg-log{
+background-image: url('/static/assets/regimage.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+}
+.signup{
+background-color: #74EBD5;
+background-image: linear-gradient(90deg, #74EBD5 28%, #9FACE6 63%);
+height: 100%;
+}
+.file_label{
+background-color: white;
+cursor: pointer;
+border: 2px solid black;
+}
+.file_label:hover{
+background-color: #ececec;
+box-shadow: 2px 2px 5px #0f6c8a;
+}

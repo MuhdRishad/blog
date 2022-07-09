@@ -1,0 +1,82 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{%static 'assets/homeimage.jpeg'%}" class="d-block w-100" alt="..." style="height: 85vh;">
+        </div>
+    </div>
+</div>
+
+<div class="container-md">
+    <div class="row my-5">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="text-center text-uppercase">
+                <h2>Create Post</h2>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                {{form.as_p}}
+                <div>
+                    <button type="submit">POST</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+<hr>
+
+<div class="text-center text-uppercase">
+    <h2>latest posts</h2>
+</div>
+{%for blog in blogs%}
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {%if blog.image%}
+                        <img src="{{blog.image.url}}" class="img-fluid rounded-start" alt="...">
+                        {%endif%}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title text-uppercase">{{blog.title}}</h4>
+                            <h6 class="card-text text-uppercase">{{blog.author}}</h6>
+                            <p class="card-text">{{blog.description}}</p>
+                            <p class="card-text"><small class="text-muted">{{blog.posted_date}}</small></p>
+
+                            <form action="{%url 'add-comment' blog.id%}" method="post">
+                                {%csrf_token%}
+                                {{comment_form.as_p}}
+                                <input type="submit" value="sent">
+                            </form>
+                            {%for comment in blog.comments_set.all%}
+                            <div>
+                                {{comment.user}}:
+                                {{comment.comment}}
+                            </div>
+                            {%endfor%}
+                            <div>
+                                <a href="{% url 'add-like' blog.id %}">Like</a>
+                                {{blog.get_like_count}}
+                            </div>
+                            <div>
+                                <p>{{blog.get_liked_users}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{%endfor%}
+
+{%endblock%}

@@ -1,0 +1,63 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+
+<div class="container">
+    <div class="my-5">
+        <h1 class="text-uppercase text-center">add your profile</h1>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card mb-5" style="width: 15rem;">
+                            <img src="{%static 'assets/profileavatar.png'%}" class="card-img-top" alt="user avatar">
+                            <div class="card-body text-center py-4">
+                                <label for="id_profile_pic" class="file_label px-2 py-1"><i
+                                        class="fa-solid fa-upload pe-2"></i><b>Profile Picture </b></label>
+                                <input type="file" name="profile_pic" id="id_profile_pic" class="d-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        {{ form.non_field_errors }}
+                        <div class="fieldWrapper mb-4">
+                            {{ form.bio.errors }}
+                            <label for="{{ form.bio.id_for_label }}"><b>Bio *</b></label>
+                            {{ form.bio }}
+                        </div>
+
+                        <div class="fieldWrapper mb-4">
+                            {{ form.phone.errors }}
+                            <label for="{{ form.phone.id_for_label }}"><b>Phone Number *</b></label>
+                            {{ form.phone }}
+                        </div>
+
+                        <div class="fieldWrapper mb-4">
+                            {{ form.date_of_birth.errors }}
+                            <label for="{{ form.date_of_birth.id_for_label }}"><b>DOB</b></label>
+                            {{ form.date_of_birth }}
+                        </div>
+
+                        <div class="fieldWrapper mb-4">
+                            {{ form.gender.errors }}
+                            <label for="{{ form.gender.id_for_label }}"><b>Gender</b></label><br>
+                            {{ form.gender }}
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
+                            <button type="submit" class="btn btn-primary">ADD PROFILE</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+{% endblock %}

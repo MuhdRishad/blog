@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/6df1a5c07c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand ps-md-5 ms-md-5 text-white" href="#">
+            <b>BLOG</b>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-5">
+                <li class="nav-item pe-4">
+                    <a class="nav-link active text-uppercase font-monospace text-white" aria-current="page" href="{%url 'home'%}">Home</a>
+                </li>
+
+                <li class="nav-item pe-4">
+                    <a class="nav-link text-uppercase font-monospace text-white" href="#">Features</a>
+                </li>
+
+                <li class="nav-item dropdown pe-4">
+                    <a class="nav-link dropdown-toggle font-monospace text-uppercase text-white" href="#" id="navbar-Dropdown"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        manage account
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbar-Dropdown">
+                        <li>
+                            {%if request.user.users%}
+                            <a class="dropdown-item text-uppercase font-monospace" href="{%url 'view-my-profile'%}"> view
+                                profile</a>
+                            {%else%}
+                            <a class="dropdown-item text-uppercase font-monospace" href="{%url 'add-profile'%}"> add
+                                profile</a>
+                            {%endif%}
+                        </li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-uppercase font-monospace" href="{%url 'password-change'%}">Change password</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item dropdown pe-5">
+                    <a class="nav-link dropdown-toggle font-monospace text-white" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {{request.user}}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item font-monospace" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    {%if request.user.users.profile_pic%}
+                    <a class="d-flex align-items-center hidden-arrow" href="{% url 'propic-update' request.user.users.id %}">
+                        <img src="{{request.user.users.profile_pic.url}}" class="rounded-circle" height="40" alt="user profile picture" loading="lazy"/>
+                    </a>
+                    {%endif%}
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {%if messages%}
+            {%for msg in messages%}
+            {%if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{msg}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%endif%}
+            {%if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{msg}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%endif%}
+            {%endfor%}
+            {%endif%}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<body>
+<div>
+    {% block body_block %}
+
+    {% endblock %}
+</div>
+</body>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+</html>

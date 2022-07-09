@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+
+<div class="container">
+    <div class="row mt-5">
+         <h3 class="text-uppercase text-center"><i>change profile picture</i></h3>
+        <div class="col-md-4 col-sm-2 col-2"></div>
+        <div class="col-md-4 col-sm-8 col-8">
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                    <div class="text-center mt-5">
+                        <label for="id_profile_pic" style="cursor:pointer"><img
+                                src="{{request.user.users.profile_pic.url}}" class="img-fluid rounded-circle" alt="..."></label>
+                        <input type="file" name="profile_pic" id="id_profile_pic" class="form-control d-none">
+                    </div>
+                <div class="text-center mb-4">
+                    <input type="submit" value="Update image" class="btn btn-secondary">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-2 col-2"></div>
+    </div>
+</div>
+
+{%endblock%}
