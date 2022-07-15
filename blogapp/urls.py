@@ -12,5 +12,6 @@ urlpatterns = [
     path("user/profilepic/change/<int:user_id>",views.ProfilePicUpdateView.as_view(),name="propic-update"),
     path("post/comment/<int:post_id>", views.add_comment, name="add-comment"),
     path("post/like/add/<int:post_id>",views.add_like,name="add-like"),
+    path("users/follow/<int:user_id>",views.do_follow,name="do-follow"),
     path("signout", views.sign_out, name="logout")
 ]

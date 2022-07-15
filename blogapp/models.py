@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import random
 # Create your models here.
 
 #MODEL FOR USERPROFILE
@@ -15,6 +16,24 @@ class UserProfile(models.Model):
     )
     gender = models.CharField(max_length=20,choices=options,default="male")
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="users")
+    following = models.ManyToManyField(User,related_name="followings",blank=True)
+
+    @property
+    def fetch_followings(self):
+        return self.following.all()
+
+    @property
+    def fetch_followings_count(self):
+        return self.fetch_followings.count()
+
+
+                    # FOLLOW SUGGETIONS
+    @property
+    def get_invitations(self):
+        all_users = UserProfile.objects.all().exclude(user=self.user)   # fetchin all users except curren user
+        my_following_list = self.fetch_followings         # fetchin all my following list
+        invitations = [user for user in all_users if user not in my_following_list]    # removing my following from my all users
+        return random.sample(invitations,1)
 
 
 #MODEL FOR BLOGS

@@ -1,82 +1,125 @@
 {%extends 'base.html'%}
 {%load static%}
 {%block body_block%}
+
+<!--CARAOUSAL STARTING-->
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="{%static 'assets/homeimage.jpeg'%}" class="d-block w-100" alt="..." style="height: 85vh;">
-        </div>
-    </div>
-</div>
+            <div class="carousel-caption d-md-block">
+                <h5>Welcome {{request.user}}</h5>
 
-<div class="container-md">
-    <div class="row my-5">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="text-center text-uppercase">
-                <h2>Create Post</h2>
-            </div>
-            <form action="" method="post" enctype="multipart/form-data">
-                {%csrf_token%}
-                {{form.as_p}}
-                <div>
-                    <button type="submit">POST</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-2"></div>
-    </div>
-</div>
-<hr>
+                <!-- CREATE POST-->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    CREATE POST
+                </button>
 
-<div class="text-center text-uppercase">
-    <h2>latest posts</h2>
-</div>
-{%for blog in blogs%}
-<div class="container">
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        {%if blog.image%}
-                        <img src="{{blog.image.url}}" class="img-fluid rounded-start" alt="...">
-                        {%endif%}
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h4 class="card-title text-uppercase">{{blog.title}}</h4>
-                            <h6 class="card-text text-uppercase">{{blog.author}}</h6>
-                            <p class="card-text">{{blog.description}}</p>
-                            <p class="card-text"><small class="text-muted">{{blog.posted_date}}</small></p>
 
-                            <form action="{%url 'add-comment' blog.id%}" method="post">
-                                {%csrf_token%}
-                                {{comment_form.as_p}}
-                                <input type="submit" value="sent">
-                            </form>
-                            {%for comment in blog.comments_set.all%}
-                            <div>
-                                {{comment.user}}:
-                                {{comment.comment}}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="exampleModalLabel">Create your blog</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
-                            {%endfor%}
-                            <div>
-                                <a href="{% url 'add-like' blog.id %}">Like</a>
-                                {{blog.get_like_count}}
-                            </div>
-                            <div>
-                                <p>{{blog.get_liked_users}}</p>
+                            <div class="modal-body text-dark text-start">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    {%csrf_token%}
+                                    {{form.as_p}}
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-secondary">POST</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
-        <div class="col-2"></div>
     </div>
 </div>
-{%endfor%}
+<!--CARASOUL END-->
+
+
+
+<div class="text-center text-uppercase my-5">
+    <h2><b>posts</b></h2>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <div>
+                {%for user in request.user.users.fetch_followings%}
+                {{user}}
+                {%endfor%}
+                <div>
+                    {{request.user.users.fetch_followings_count}}
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-6">
+            {%for blog in blogs%}
+            <div class="border border-dark m-2 shadow">
+                <div>
+                    <p>{{blog.author}}</p>
+                    <small class="text-muted">{{blog.posted_date}}</small>
+                </div>
+                <div class="p-3">
+                    <img src="{{blog.image.url}}" class="img-fluid" alt="..." style="max-height: 400px; width:100%;">
+                </div>
+                <div>
+                    <h4>{{blog.title}}</h4>
+                    <p>{{blog.decription}}</p>
+                </div>
+
+
+                <div>
+                    <form action="{%url 'add-comment' blog.id%}" method="post">
+                        {%csrf_token%}
+                        {{comment_form.as_p}}
+                        <input type="submit" value="sent">
+                    </form>
+                    {%for comment in blog.comments_set.all%}
+                    <div>
+                        {{comment.user}}:
+                        {{comment.comment}}
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div>
+                    <a href="{% url 'add-like' blog.id %}">Like</a>
+                    {{blog.get_like_count}}
+                </div>
+                <div>
+                    <p>{{blog.get_liked_users}}</p>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+
+        <div class="col-3">
+            <div>
+                <h3>suggetions</h3>
+                <p>
+                    {%for userprofile in request.user.users.get_invitations%}
+                    {{userprofile.user.username}}
+                    {%endfor%}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {%endblock%}

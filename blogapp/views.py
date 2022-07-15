@@ -161,3 +161,12 @@ def add_like(request,*args,**kwargs):
     return redirect("home")
 
 
+def do_follow(request,*args,**kwargs):
+    friend_id = kwargs.get("user_id")
+    friend_profile = UserProfile.objects.get(id=friend_id)
+    friend_profile.following.add(request.user)
+    messages.success(request,"You are started following"+ friend_profile.user.username)
+    return redirect("home")
+
+
+
