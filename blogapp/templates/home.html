@@ -6,12 +6,15 @@
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{%static 'assets/homeimage.jpeg'%}" class="d-block w-100" alt="..." style="height: 85vh;">
-            <div class="carousel-caption d-md-block">
-                <h5>Welcome {{request.user}}</h5>
+            <img src="{%static 'assets/landing.webp'%}" class="d-block w-100" alt="..." style="height: 85vh;">
+            <div class="carousel-caption">
+                <h2 class="user-welcome">Welcome <span class="username-welcome">{{request.user}}</span></h2>
+                <blockquote class="text-dark mt-4 text-monospace">" Don’t focus on having a great blog. Focus on producing a blog that’s great for your readers. "</blockquote>
+                <p class="text-monospace text-dark">- <b>Brian Clark</b></p>
+                <br>
 
                 <!-- CREATE POST-->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     CREATE POST
                 </button>
 
@@ -21,7 +24,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title text-dark" id="exampleModalLabel">Create your blog</h5>
+                                <h5 class="modal-title text-dark text-uppercase" id="exampleModalLabel"><b>Create your blog</b></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -46,78 +49,84 @@
 <!--CARASOUL END-->
 
 
-
-<div class="text-center text-uppercase my-5">
-    <h2><b>posts</b></h2>
-</div>
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-3">
-            <div>
-                {%for user in request.user.users.fetch_followings%}
-                {{user}}
-                {%endfor%}
-                <div>
-                    {{request.user.users.fetch_followings_count}}
-                </div>
+    <div class="row mt-3">
 
-            </div>
-        </div>
+<!--        POSTS-->
+        <div class="col-lg-2"></div>
 
-
-        <div class="col-6">
+        <div class="col-lg-8">
             {%for blog in blogs%}
-            <div class="border border-dark m-2 shadow">
-                <div>
-                    <p>{{blog.author}}</p>
-                    <small class="text-muted">{{blog.posted_date}}</small>
-                </div>
-                <div class="p-3">
-                    <img src="{{blog.image.url}}" class="img-fluid" alt="..." style="max-height: 400px; width:100%;">
-                </div>
-                <div>
-                    <h4>{{blog.title}}</h4>
-                    <p>{{blog.decription}}</p>
-                </div>
+            <div class=" my-5 shadow">
+                <div class="row">
 
-
-                <div>
-                    <form action="{%url 'add-comment' blog.id%}" method="post">
-                        {%csrf_token%}
-                        {{comment_form.as_p}}
-                        <input type="submit" value="sent">
-                    </form>
-                    {%for comment in blog.comments_set.all%}
-                    <div>
-                        {{comment.user}}:
-                        {{comment.comment}}
+<!--                    POST IMAGE-->
+                    <div class="col-lg-5">
+                        <div>
+                            <img src="{{blog.image.url}}" alt="..." class="img-fluid"
+                                 style=" width: 100%; max-height:350px;">
+                        </div>
                     </div>
-                    {%endfor%}
-                </div>
 
-                <div>
-                    <a href="{% url 'add-like' blog.id %}">Like</a>
-                    {{blog.get_like_count}}
-                </div>
-                <div>
-                    <p>{{blog.get_liked_users}}</p>
-                </div>
+<!--                    POST CONTENT-->
+                    <div class="col-lg-7 px-3">
+                        <div class="px-3">
+                            <div class="pt-4 d-flex">
+                                <div class="flex-shrink-0">
+                                    <img src="{{blog.author.users.profile_pic.url}}" width="50px"
+                                         class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <p class="d-inline text-uppercase px-2">{{blog.author}}</p>
+                                    <p class="text-muted d-block px-2">{{blog.posted_date}}</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="text-uppercase my-3">
+                                    <h3 class="font-monospace">{{blog.title}}</h3>
+                                </div>
+                                <div>
+                                    <p style="font-family: vardana;">{{blog.description}}</p>
+                                </div>
+                            </div>
+                            </div>
+                        <hr>
+
+<!--                        LIKES-->
+                            <div class="row px-3">
+                                <div class="col-6">
+                                    <div>
+                                        <p style="margin-bottom: 2px;">{{blog.get_liked_users}}</p>
+                                        <a href="{% url 'add-like' blog.id %}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                        {{blog.get_like_count}}
+                                    </div>
+                                </div>
+
+<!--                                COMMENTS-->
+                                <div class="col-6">
+                                    <form action="{%url 'add-comment' blog.id%}" method="post">
+                                        {%csrf_token%}
+                                        <input type="text" name="comment" placeholder="Comment">
+                                        <input type="submit" value="sent">
+                                    </form>
+                                    {%for comment in blog.comments_set.all%}
+                                    <div>
+                                        {{comment.user}}:
+                                        {{comment.comment}}
+                                    </div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
+
             {%endfor%}
         </div>
 
 
-        <div class="col-3">
-            <div>
-                <h3>suggetions</h3>
-                <p>
-                    {%for userprofile in request.user.users.get_invitations%}
-                    {{userprofile.user.username}}
-                    {%endfor%}
-                </p>
-            </div>
-        </div>
+        <div class="col-lg-2"></div>
     </div>
 </div>
 

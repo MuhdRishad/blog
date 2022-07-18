@@ -5,7 +5,7 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <div class="card" style="width: 20rem;">
-                <img src="{{request.user.users.profile_pic.url}}" class="card-img-top img-fluid" alt="..." >
+                <img src="{{request.user.users.profile_pic.url}}" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Username</b> - {{request.user}}</h5>
                     <p class="card-text"><b>Bio</b> - {{request.user.users.bio}}</p>
@@ -14,6 +14,11 @@
                     <li class="list-group-item"><b>Phone </b> - {{request.user.users.phone}}</li>
                     <li class="list-group-item"><b>DOB </b> - {{request.user.users.date_of_birth}}</li>
                     <li class="list-group-item"><b>Gender </b> - {{request.user.users.gender}}</li>
+                    <li class="list-group-item"><b>Following </b> - {%for user in request.user.users.fetch_followings%}
+                        {{user}}
+                        {%endfor%}
+                        {{request.user.users.fetch_followings_count}}
+                    </li>
                 </ul>
                 <div class="card-body">
                     <a href="#" class="card-link">Card link</a>
@@ -21,7 +26,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <h3>Peopeles you may know</h3>
+            {%if request.user.users.get_invitations%}
+            {%for user in request.user.users.get_invitations%}
+            <p>{{user.username}}  <a href="{%url 'do-follow' user.id%}">Follow</a></p>
+
+            {%endfor%}
+            {%endif%}
+        </div>
     </div>
 </div>
 {%endblock%}

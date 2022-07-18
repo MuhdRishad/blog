@@ -26,14 +26,28 @@ class UserProfile(models.Model):
     def fetch_followings_count(self):
         return self.fetch_followings.count()
 
+    @property
+    def get_followers(self):
+        all_user_profile = UserProfile.objects.all()
+        my_follwers = []
+        for profile in all_user_profile:
+            if self.user in profile.fetch_folowings:
+                my_follwers.append(profile)
+                return my_follwers
+
+    @property
+    def get_followers_count(self):
+        return len(self.get_followers())
+
 
                     # FOLLOW SUGGETIONS
     @property
     def get_invitations(self):
-        all_users = UserProfile.objects.all().exclude(user=self.user)   # fetchin all users except curren user
-        my_following_list = self.fetch_followings         # fetchin all my following list
-        invitations = [user for user in all_users if user not in my_following_list]    # removing my following from my all users
-        return random.sample(invitations,1)
+        all_user_profile = UserProfile.objects.all().exclude(user=self.user)   # fetching all user profile object except current user
+        user_list = [user_profile.user for user_profile in all_user_profile] # fetching all users
+        my_following_list = [user for user in self.fetch_followings]        # fetching all my following list
+        invitations = [user for user in user_list if user not in my_following_list]    # removing my following from my all users
+        return invitations
 
 
 #MODEL FOR BLOGS
@@ -41,7 +55,7 @@ class Blogs(models.Model):
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=230)
     image = models.ImageField(upload_to="blogimages",null=True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name="author")
+    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name="authors")
     posted_date = models.DateTimeField(auto_now_add=True)
     liked_by = models.ManyToManyField(User)
 
