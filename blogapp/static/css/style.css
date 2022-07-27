@@ -28,3 +28,28 @@ letter-spacing: 8px;
 .username-welcome{
 color: #ff2424;
 }
+
+
+
+.update-profile{
+text-decoration: none;
+border: 1px solid black;
+padding: 7px;
+text-transform: uppercase;
+margin-left: 55px;
+font-size: small;
+color: black;
+border-radius: 5px;
+}
+
+.followings-list{
+list-style: none;
+}
+
+.follow-button{
+text-decoration: none;
+border: 1px solid black;
+border-radius: 4px;
+padding: 0px 5px;
+margin-left: 12px;
+}

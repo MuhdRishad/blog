@@ -31,7 +31,7 @@ class UserProfile(models.Model):
         all_user_profile = UserProfile.objects.all()
         my_follwers = []
         for profile in all_user_profile:
-            if self.user in profile.fetch_folowings:
+            if self.user in profile.fetch_followings:
                 my_follwers.append(profile)
                 return my_follwers
 
@@ -69,6 +69,8 @@ class Blogs(models.Model):
         liked_users = self.liked_by.all()
         users = [user.username for user in liked_users]
         return users
+
+
 
     def __str__(self):
         return self.title
