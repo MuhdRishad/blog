@@ -33,7 +33,8 @@ class UserProfile(models.Model):
         for profile in all_user_profile:
             if self.user in profile.fetch_followings:
                 my_follwers.append(profile)
-                return my_follwers
+        return my_follwers
+
 
     @property
     def get_followers_count(self):

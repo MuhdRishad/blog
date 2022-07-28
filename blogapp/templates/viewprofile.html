@@ -4,25 +4,25 @@
 
 <div class="container-md">
     <div class="row justify-content-center mt-5">
-        <div class="col-auto px-5">
-            <div>
+        <div class="col-lg-3 col-md-4 col-5">
+            <div class="ps-lg-4">
                 <img src="{{request.user.users.profile_pic.url}}" alt="profile picture" class="img-fluid" style="width:200px;
                     height:200px;
                     border-radius:50%;">
             </div>
         </div>
 
-        <div class="col-auto mt-5 px-5">
+        <div class="col-lg-6 col-md-8 col-7 mt-4 ">
             <div>
-                <h3>{{request.user}}<a href="{%url 'profile-update' request.user.users.id%}"
-                                       class="card-link update-profile">Update profile</a></h3>
+                <h3 style="font-family: Georgia,sans-serif;">{{request.user}}<a href="{%url 'profile-update' request.user.users.id%}"
+                                       class="card-link update-profile ms-4">Update profile</a></h3>
             </div>
 
 
             <div class="mt-4">
                 <!--FOLLOWINGS-->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-secondary btn-sm me-3" data-bs-toggle="modal"
+                <button type="button" class="button-outline me-sm-3"  data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                     <span>{{request.user.users.fetch_followings_count}}</span> followings
                 </button>
@@ -55,7 +55,7 @@
 
                 <!-- FOLLOWERS-->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-secondary btn-sm me-3" data-bs-toggle="modal"
+                <button type="button" class="button-outline me-sm-3" data-bs-toggle="modal"
                         data-bs-target="#followers">
                     Followers
                 </button>
@@ -75,10 +75,9 @@
                                     {%if request.user.users.get_followers%}
                                     {%for user in request.user.users.get_followers%}
                                     <li style="line-height: 3;">
-                                        <img src="{{user.users.profile_pic.url}}" width="30px"
+                                        <img src="{{user.profile_pic.url}}" width="30px"
                                              class="rounded-circle mx-2" alt="">
-                                        {{user.username}}
-                                        <a href="{%url 'do-follow' user.id%}" class="follow-button">Follow</a>
+                                        {{user.user}}
                                     </li>
                                     {%endfor%}
                                     {%endif%}
@@ -92,9 +91,9 @@
 
                 <!-- SUGGETIONS-->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-secondary btn-sm me-3" data-bs-toggle="modal"
+                <button type="button" class="button-outline me-sm-3" data-bs-toggle="modal"
                         data-bs-target="#example-Modal">
-                    Suggetions
+                    Suggestions
                 </button>
 
                 <!-- Modal -->
@@ -128,11 +127,11 @@
             </div>
 
             <div class="mt-4">
-                <p class="text-monospace ">{{request.user.first_name}} {{request.user.last_name}}</p>
+                <p style="font-family: georgia,sans-serif;">{{request.user.first_name}} {{request.user.last_name}}</p>
             </div>
-
         </div>
-         <hr class="my-5 w-75">
+        <div class="col-lg-3 col-md-0"></div>
+         <hr class="my-5 w-75 mx-5">
     </div>
 
 
@@ -150,46 +149,6 @@
         </div>
         {%endfor%}
     </div>
-
 </div>
 
-
-<!--&lt;!&ndash;Dont want&ndash;&gt;-->
-<!--<div class="container">-->
-<!--    <div class="row mt-5">-->
-<!--        <div class="col-lg-4"></div>-->
-<!--        <div class="col-lg-4">-->
-<!--            <div class="card" style="width: 20rem;">-->
-<!--                <img src="{{request.user.users.profile_pic.url}}" class="card-img-top img-fluid" alt="...">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title"><b>Username</b> - {{request.user}}</h5>-->
-<!--                    <p class="card-text"><b>Bio</b> - {{request.user.users.bio}}</p>-->
-<!--                </div>-->
-<!--                <ul class="list-group list-group-flush">-->
-<!--                    <li class="list-group-item"><b>Phone </b> - {{request.user.users.phone}}</li>-->
-<!--                    <li class="list-group-item"><b>DOB </b> - {{request.user.users.date_of_birth}}</li>-->
-<!--                    <li class="list-group-item"><b>Gender </b> - {{request.user.users.gender}}</li>-->
-<!--                    <li class="list-group-item"><b>Following </b> - {%for user in request.user.users.fetch_followings%}-->
-<!--                        {{user}}-->
-<!--                        {%endfor%}-->
-<!--                        {{request.user.users.fetch_followings_count}}-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <div class="card-body">-->
-<!--                    <a href="#" class="card-link">Card link</a>-->
-<!--                    <a href="{%url 'profile-update' request.user.users.id%}" class="card-link">Update profile</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-4">-->
-<!--            <h3>Peoples you may know</h3>-->
-<!--            {%if request.user.users.get_invitations%}-->
-<!--            {%for user in request.user.users.get_invitations%}-->
-<!--            <p>{{user.username}} <a href="{%url 'do-follow' user.id%}">Follow</a></p>-->
-
-<!--            {%endfor%}-->
-<!--            {%endif%}-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 {%endblock%}

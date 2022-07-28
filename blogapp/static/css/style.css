@@ -35,8 +35,7 @@ color: #ff2424;
 text-decoration: none;
 border: 1px solid black;
 padding: 7px;
-text-transform: uppercase;
-margin-left: 55px;
+text-transform: capitalize;
 font-size: small;
 color: black;
 border-radius: 5px;
@@ -99,4 +98,12 @@ color: #fff;
 font-size: 18px;
 font-family: Monospace;
 text-transform: capitalize;
+}
+
+.button-outline{
+padding: 0;
+border: none;
+background: none;
+text-transform: capitalize;
+font-family: Georgia,sans-serif;
 }
