@@ -70,6 +70,14 @@ class IndexView(CreateView):
         context["comment_form"] = comment_form
         return context
 
+class AllBlogsView(TemplateView):
+    template_name = "all-blogs.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        blogs = Blogs.objects.all().order_by("-posted_date")
+        context["blogs"] = blogs
+        return context
 
 
 def sign_out(request,*args,**kwargs):
@@ -99,7 +107,6 @@ class ViewMyprofileView(TemplateView):
         user_blogs = Blogs.objects.filter(author=self.request.user)
         context["blogs"]=user_blogs
         return context
-
 
 
 

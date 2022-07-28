@@ -85,13 +85,13 @@ font-family: Georgia,sans-serif;
 list-style: none;
 display: flex;
 justify-content: center;
-margin-top: 110px;
+margin-top: 120px;
 }
 
 .copyright{
 display: flex;
 justify-content: center;
-margin-top: 110px;
+margin-top: 120px;
 }
 .copyright p{
 color: #fff;
@@ -107,3 +107,23 @@ background: none;
 text-transform: capitalize;
 font-family: Georgia,sans-serif;
 }
+
+.all_post_button{
+background-color: #000000;
+border: none;
+width: 33%;
+height: 7vh;
+}
+
+.all_post_button a{
+color: white;
+text-decoration: none;
+font-size: 13px;
+font-family: georgia,sans-serif;
+text-transform: capitalize;
+}
+
+.all_post_button a:hover {
+color: #fff;
+}
+

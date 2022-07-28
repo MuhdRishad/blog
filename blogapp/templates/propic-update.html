@@ -12,10 +12,10 @@
                 {%csrf_token%}
                     <div class="text-center mt-5">
                         <label for="id_profile_pic" style="cursor:pointer"><img
-                                src="{{request.user.users.profile_pic.url}}" class="img-fluid" alt="..." style="height: 250px; width:250px; border-radius:50%"></label>
+                                src="{{request.user.users.profile_pic.url}}" class="img-fluid" alt="..." style="height: 350px; width:300px;border: 3px solid #000"></label>
                         <input type="file" name="profile_pic" id="id_profile_pic" class="form-control d-none">
                     </div>
-                <div class="text-center mb-4 mt-1">
+                <div class="text-center mb-4 mt-2">
                     <input type="submit" value="Update image" class="btn btn-secondary">
                 </div>
             </form>
