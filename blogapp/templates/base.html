@@ -29,10 +29,6 @@
                     <a class="nav-link active text-uppercase font-monospace text-white" aria-current="page" href="{%url 'home'%}">Home</a>
                 </li>
 
-                <li class="nav-item pe-4">
-                    <a class="nav-link text-uppercase font-monospace text-white" href="#">Features</a>
-                </li>
-
                 <li class="nav-item dropdown pe-4">
                     <a class="nav-link dropdown-toggle font-monospace text-uppercase text-white" href="#" id="navbar-Dropdown"
                        role="button"
@@ -111,6 +107,58 @@
 
     {% endblock %}
 </div>
+
+<footer style="background-color: #000000;" class="py-5 mt-5">
+    <div class="container-md">
+        <div class="row">
+            <div class="col-md-4">
+                      <ul class="connect-with">
+                        <li class="fs-3 mx-3"><a href="https://www.instagram.com/" ><i class="fa-brands fa-instagram text-white"></i></a></li>
+                        <li class="fs-3 mx-3"><a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f text-white"></i></a></li>
+                        <li class="fs-3 mx-3"><a href="https://twitter.com/i/flow/login"><i class="fa-brands fa-twitter text-white"></i></a></li>
+                    </ul>
+            </div>
+
+            <div class="col-md-4">
+                <div class="usefull-links">
+                    <ul style="list-style: none;">
+                        <li>
+                            <h5>usefull links</h5>
+                        </li>
+                        <li>
+                            <a href="{%url 'home'%}">home</a>
+                        </li>
+                        <li>
+                            {%if request.user.users%}
+                            <a href="{%url 'view-my-profile'%}" >View profile</a>
+                            {%else%}
+                            <a href="{%url 'add-profile'%}" >add profile</a>
+                            {%endif%}
+                        </li>
+                         <li>
+                            <a href="{%url 'profile-update' request.user.users.id%}" >update profile</a>
+                        </li>
+                        <li>
+                            <a href="{%url 'password-change'%}" >change password</a>
+                        </li>
+                        <li>
+                            {%if request.user.users.profile_pic%}
+                            <a href="{% url 'propic-update' request.user.users.id %}">change profile pic</a>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="copyright">
+                    <p>Copyright &copy; by 2023 blog .</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
 </body>
 
 

@@ -53,3 +53,50 @@ border-radius: 4px;
 padding: 0px 5px;
 margin-left: 12px;
 }
+
+.date-time{
+margin: 0;
+font-size: x-small;
+}
+
+.usefull-links{
+display: flex;
+justify-content: center;
+margin-top: 40px;
+}
+
+.usefull-links a{
+font-size: 15px;
+text-decoration: none;
+color: #ffffff;
+text-transform: capitalize;
+line-height: 1;
+font-family: Monospace;
+line-height: 2;
+}
+
+.usefull-links h5{
+color: #fff;
+text-transform: uppercase;
+padding-bottom: 15px;
+font-family: Georgia,sans-serif;
+}
+
+.connect-with{
+list-style: none;
+display: flex;
+justify-content: center;
+margin-top: 110px;
+}
+
+.copyright{
+display: flex;
+justify-content: center;
+margin-top: 110px;
+}
+.copyright p{
+color: #fff;
+font-size: 18px;
+font-family: Monospace;
+text-transform: capitalize;
+}

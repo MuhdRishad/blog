@@ -94,6 +94,14 @@ class UserProfileView(CreateView):
 class ViewMyprofileView(TemplateView):
     template_name = "viewprofile.html"
 
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        user_blogs = Blogs.objects.filter(author=self.request.user)
+        context["blogs"]=user_blogs
+        return context
+
+
+
 
 class PasswordResteView(FormView):
     template_name = "change-password.html"

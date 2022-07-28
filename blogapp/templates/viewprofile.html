@@ -2,17 +2,17 @@
 {%block body_block%}
 
 
-<div class="container">
+<div class="container-md">
     <div class="row justify-content-center mt-5">
-        <div class="col-auto">
+        <div class="col-auto px-5">
             <div>
-                <img src="{{request.user.users.profile_pic.url}}" alt="profile picrture" class="img-fluid" style="width:200px;
+                <img src="{{request.user.users.profile_pic.url}}" alt="profile picture" class="img-fluid" style="width:200px;
                     height:200px;
                     border-radius:50%;">
             </div>
         </div>
 
-        <div class="col-auto mx-5 mt-4">
+        <div class="col-auto mt-5 px-5">
             <div>
                 <h3>{{request.user}}<a href="{%url 'profile-update' request.user.users.id%}"
                                        class="card-link update-profile">Update profile</a></h3>
@@ -47,43 +47,6 @@
                                     </li>
                                     {%endfor%}
                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- SUGGETIONS-->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-secondary btn-sm me-3" data-bs-toggle="modal"
-                        data-bs-target="#example-Modal">
-                    Suggetions
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="example-Modal" tabindex="-1" aria-labelledby="example-Modal-Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="example-Modal-Label">Suggetions</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <ul style="list-style: none;">
-                                    {%if request.user.users.get_invitations%}
-                                    {%for user in request.user.users.get_invitations%}
-                                    <li style="line-height: 3;">
-                                        <img src="{{user.users.profile_pic.url}}" width="30px"
-                                             class="rounded-circle mx-2" alt="">
-                                        {{user.username}}
-                                        <a href="{%url 'do-follow' user.id%}" class="follow-button">Follow</a>
-                                    </li>
-                                    {%endfor%}
-                                    {%endif%}
-                                </ul>
-
                             </div>
                         </div>
                     </div>
@@ -125,16 +88,68 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- SUGGETIONS-->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-secondary btn-sm me-3" data-bs-toggle="modal"
+                        data-bs-target="#example-Modal">
+                    Suggetions
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="example-Modal" tabindex="-1" aria-labelledby="example-Modal-Label"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="example-Modal-Label">Suggetions</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul style="list-style: none;">
+                                    {%if request.user.users.get_invitations%}
+                                    {%for user in request.user.users.get_invitations%}
+                                    <li style="line-height: 3;">
+                                        <img src="{{user.users.profile_pic.url}}" width="30px"
+                                             class="rounded-circle mx-2" alt="">
+                                        {{user.username}}
+                                        <a href="{%url 'do-follow' user.id%}" class="follow-button">Follow</a>
+                                    </li>
+                                    {%endfor%}
+                                    {%endif%}
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-4">
                 <p class="text-monospace ">{{request.user.first_name}} {{request.user.last_name}}</p>
             </div>
 
-
         </div>
+         <hr class="my-5 w-75">
     </div>
 
+
+    <div class="row">
+        {%for blog in blogs%}
+        <div class="col-sm-4 d-flex justify-content-center py-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{blog.image.url}}" class="card-img-top" alt="..." style="height: 250px">
+                <div class="card-body">
+                    <h5 class="card-title text-monospace text-capitalize">{{blog.title}}</h5>
+                    <p class="card-text text-monospace">{{blog.description}}</p>
+                    <p class="text-muted date-time">{{blog.posted_date}}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
 
 </div>
 
