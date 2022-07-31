@@ -3,7 +3,7 @@
 
 
 <div class="container-md">
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center my-5">
         <div class="col-lg-3 col-md-4 col-5">
             <div class="ps-lg-4">
                 <img src="{{request.user.users.profile_pic.url}}" alt="profile picture" class="img-fluid" style="width:200px;
@@ -14,15 +14,16 @@
 
         <div class="col-lg-6 col-md-8 col-7 mt-4 ">
             <div>
-                <h3 style="font-family: Georgia,sans-serif;">{{request.user}}<a href="{%url 'profile-update' request.user.users.id%}"
-                                       class="card-link update-profile ms-4">Update profile</a></h3>
+                <h3 style="font-family: Georgia,sans-serif;">{{request.user}}<a
+                        href="{%url 'profile-update' request.user.users.id%}"
+                        class="card-link update-profile ms-4">Update profile</a></h3>
             </div>
 
 
             <div class="mt-4">
                 <!--FOLLOWINGS-->
                 <!-- Button trigger modal -->
-                <button type="button" class="button-outline me-sm-3"  data-bs-toggle="modal"
+                <button type="button" class="button-outline me-sm-3" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                     <span>{{request.user.users.fetch_followings_count}}</span> followings
                 </button>
@@ -57,7 +58,7 @@
                 <!-- Button trigger modal -->
                 <button type="button" class="button-outline me-sm-3" data-bs-toggle="modal"
                         data-bs-target="#followers">
-                    Followers
+                    <span>{{request.user.users.get_followers_count}} </span> Followers
                 </button>
 
                 <!-- Modal -->
@@ -81,6 +82,7 @@
                                     </li>
                                     {%endfor%}
                                     {%endif%}
+
                                 </ul>
 
                             </div>
@@ -131,12 +133,11 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-0"></div>
-         <hr class="my-5 w-75 mx-5">
     </div>
 
 
-<!--CURRENT USER POSTS-->
-    <div class="row">
+    <!--CURRENT USER POSTS-->
+    <div class="row mt-5">
         {%for blog in blogs%}
         <div class="col-sm-4 d-flex justify-content-center py-4">
             <div class="card" style="width: 18rem;">

@@ -29,16 +29,17 @@ class UserProfile(models.Model):
     @property
     def get_followers(self):
         all_user_profile = UserProfile.objects.all()
-        my_follwers = []
+        my_followers = []
         for profile in all_user_profile:
             if self.user in profile.fetch_followings:
-                my_follwers.append(profile)
-        return my_follwers
+                my_followers.append(profile)
+        return my_followers
 
 
     @property
     def get_followers_count(self):
-        return len(self.get_followers())
+        return len(self.get_followers)
+
 
 
                     # FOLLOW SUGGETIONS
