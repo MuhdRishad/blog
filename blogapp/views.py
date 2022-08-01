@@ -6,8 +6,18 @@ from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse_lazy
 from blogapp.models import UserProfile,Blogs,Comments
 from django.contrib import messages
+from django.utils.decorators import method_decorator
 
 # Create your views here.
+
+def signin_required(fun):
+    def wrapper(request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return fun(request,*args,**kwargs)
+        else:
+            messages.error(request,"Please login")
+            return redirect("signin")
+    return wrapper
 
 
 class UserRegistrationView(CreateView):
@@ -50,7 +60,7 @@ class UserLoginView(FormView):
             else:
                 return render(request, self.template_name, {"form": form})
 
-
+@method_decorator(signin_required,name="dispatch")
 class IndexView(CreateView):
     model = Blogs
     form_class = BlogForm
@@ -70,6 +80,7 @@ class IndexView(CreateView):
         context["comment_form"] = comment_form
         return context
 
+@method_decorator(signin_required,name="dispatch")
 class AllBlogsView(TemplateView):
     template_name = "all-blogs.html"
 
@@ -79,12 +90,12 @@ class AllBlogsView(TemplateView):
         context["blogs"] = blogs
         return context
 
-
+@signin_required
 def sign_out(request,*args,**kwargs):
     logout(request)
     return redirect("signin")
 
-
+@method_decorator(signin_required,name="dispatch")
 class UserProfileView(CreateView):
     model = UserProfile
     template_name = "addprofile.html"
@@ -98,7 +109,7 @@ class UserProfileView(CreateView):
         self.object = form.save()
         return super().form_valid(form)
 
-
+@method_decorator(signin_required,name="dispatch")
 class ViewMyprofileView(TemplateView):
     template_name = "viewprofile.html"
 
@@ -109,7 +120,7 @@ class ViewMyprofileView(TemplateView):
         return context
 
 
-
+@method_decorator(signin_required,name="dispatch")
 class PasswordResteView(FormView):
     template_name = "change-password.html"
     form_class = PasswordResetForm
@@ -130,6 +141,7 @@ class PasswordResteView(FormView):
                 messages.error(request,"invalid credentials")
                 return render(request,self.template_name,{"form":form})
 
+@method_decorator(signin_required,name="dispatch")
 class ProfileUpdateView(UpdateView):
     model = UserProfile
     template_name = "profile-update.html"
@@ -142,7 +154,7 @@ class ProfileUpdateView(UpdateView):
         self.object = form.save()
         return super().form_valid(form)
 
-
+@method_decorator(signin_required,name="dispatch")
 class ProfilePicUpdateView(UpdateView):
     model = UserProfile
     template_name = "propic-update.html"
@@ -156,7 +168,7 @@ class ProfilePicUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-
+@signin_required
 def add_comment(request,*args,**kwargs):
     if request.method == 'POST':
         blog_id = kwargs.get('post_id')
@@ -167,7 +179,7 @@ def add_comment(request,*args,**kwargs):
         messages.success(request,"Comment Added")
         return redirect('home')
 
-
+@signin_required
 def add_like(request,*args,**kwargs):
     blog_id = kwargs.get("post_id")
     blog = Blogs.objects.get(id=blog_id)
@@ -175,7 +187,7 @@ def add_like(request,*args,**kwargs):
     blog.save()
     return redirect("home")
 
-
+@signin_required
 def do_follow(request,*args,**kwargs):
     friend_id = kwargs.get("user_id")
     friend = User.objects.get(id=friend_id)
