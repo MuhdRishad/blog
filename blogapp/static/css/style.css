@@ -1,3 +1,4 @@
+
 .reg-log{
 background-image: url('/static/assets/regimage.jpg');
 background-repeat: no-repeat;
@@ -28,8 +29,6 @@ letter-spacing: 8px;
 .username-welcome{
 color: #ff2424;
 }
-
-
 
 .update-profile{
 text-decoration: none;
@@ -111,7 +110,7 @@ font-family: Georgia,sans-serif;
 .all_post_button{
 background-color: #000000;
 border: none;
-width: 33%;
+width: 28%;
 height: 7vh;
 }
 
@@ -127,3 +126,11 @@ text-transform: capitalize;
 color: #fff;
 }
 
+.accordion-button::after{
+content: none;
+}
+
+.posted_date{
+font-size: xx-small;
+text-transform: capitalize;
+}
