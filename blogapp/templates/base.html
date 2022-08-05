@@ -49,26 +49,14 @@
                                 profile</a>
                             {%endif%}
                         </li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item text-uppercase font-monospace" href="{%url 'password-change'%}">Change password</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-uppercase font-monospace" href="{%url 'password-change'%}">Change password</a></li>
+                        <li><a class="dropdown-item text-uppercase font-monospace" href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
-
-
-                <li class="nav-item dropdown pe-5">
-                    <a class="nav-link dropdown-toggle font-monospace text-white" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        {{request.user}}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item font-monospace" href="{% url 'logout' %}">Logout</a></li>
-                    </ul>
-                </li>
-
-                <li>
+                <li class="pe-4">
                     {%if request.user.users.profile_pic%}
                     <a class="d-flex align-items-center hidden-arrow" href="{% url 'propic-update' request.user.users.id %}">
                         <img src="{{request.user.users.profile_pic.url}}" class="rounded-circle" height="40" alt="user profile picture" loading="lazy"/>

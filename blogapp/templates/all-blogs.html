@@ -58,8 +58,7 @@
                             <div class="col-6 mt-3">
                                 <form action="{%url 'add-comment' blog.id%}" method="post">
                                     {%csrf_token%}
-                                    <input type="text" name="comment" placeholder="Comment" style="border: none">
-                                    <hr style="margin: 0; opacity: 0.7;" class="w-75">
+                                    <input type="text" name="comment" placeholder="Comment" class="w-75">
                                     <input type="submit" value="sent" class="mt-1">
                                 </form>
                                 {%for comment in blog.comments_set.all%}
