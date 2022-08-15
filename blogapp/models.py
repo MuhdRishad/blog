@@ -35,10 +35,10 @@ class UserProfile(models.Model):
                 my_followers.append(profile)
         return my_followers
 
-
     @property
     def get_followers_count(self):
         return len(self.get_followers)
+
 
 
 
@@ -73,13 +73,8 @@ class Blogs(models.Model):
         return users
 
 
-
-
-
-
     def __str__(self):
         return self.title
-
 
 
 #MODEL FOR COMMENTS

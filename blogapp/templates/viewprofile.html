@@ -79,10 +79,16 @@
                                         <img src="{{user.profile_pic.url}}" width="30px"
                                              class="rounded-circle mx-2" alt="">
                                         {{user.user}}
+
+                                        {%if user.user in request.user.users.get_invitations%}
+                                        <a href="{%url 'do-follow' user.id%}" class="follow-button">follow back</a>
+                                        {%else%}
+                                        <a href="" class="follow-button">following</a>
+                                        {%endif%}
+
                                     </li>
                                     {%endfor%}
                                     {%endif%}
-
                                 </ul>
 
                             </div>

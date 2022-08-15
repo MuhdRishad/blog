@@ -135,7 +135,9 @@
                             {%endif%}
                         </li>
                          <li>
+                             {%if request.user.users%}
                             <a href="{%url 'profile-update' request.user.users.id%}" >update profile</a>
+                             {%endif%}
                         </li>
                         <li>
                             <a href="{%url 'password-change'%}" >change password</a>

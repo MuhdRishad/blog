@@ -59,6 +59,8 @@ class UserLoginView(FormView):
                 return redirect("home")
             else:
                 return render(request, self.template_name, {"form": form})
+        else:
+            return redirect(request,self.template_name,{"form":form})
 
 @method_decorator(signin_required,name="dispatch")
 class IndexView(CreateView):
@@ -132,7 +134,7 @@ class PasswordResteView(FormView):
             password1 = form.cleaned_data.get("new_password")
             password2 = form.cleaned_data.get("confirm_password")
             user = authenticate(request,username=request.user.username,password=old_password)
-            if user:
+            if user and password1 == password2:
                 user.set_password(password2)
                 user.save()
                 messages.success(request,"Password changed successfully")
@@ -193,8 +195,6 @@ def do_follow(request,*args,**kwargs):
     friend = User.objects.get(id=friend_id)
     request.user.users.following.add(friend)
     friend.save()
-    messages.success(request,"You are started following"+ friend.username)
+    messages.success(request,"You are started following "+ friend.username)
     return redirect("home")
-
-
 
